@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbItemMapper" >
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbItem" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="sell_point" property="sellPoint" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="stock_count" property="stockCount" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="categoryId" property="categoryid" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="item_sn" property="itemSn" jdbcType="VARCHAR" />
+    <result column="cost_pirce" property="costPirce" jdbcType="DECIMAL" />
+    <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="is_default" property="isDefault" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="cart_thumbnail" property="cartThumbnail" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="seller" property="seller" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, sell_point, price, stock_count, num, barcode, image, categoryId, status, 
+    create_time, update_time, item_sn, cost_pirce, market_price, is_default, goods_id, 
+    seller_id, cart_thumbnail, category, brand, spec, seller
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pinyougou.pojo.TbItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pinyougou.pojo.TbItemExample" >
+    delete from tb_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pinyougou.pojo.TbItem" >
+    insert into tb_item (id, title, sell_point, 
+      price, stock_count, num, 
+      barcode, image, categoryId, 
+      status, create_time, update_time, 
+      item_sn, cost_pirce, market_price, 
+      is_default, goods_id, seller_id, 
+      cart_thumbnail, category, brand, 
+      spec, seller)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{sellPoint,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{stockCount,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{barcode,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{categoryid,jdbcType=BIGINT}, 
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{itemSn,jdbcType=VARCHAR}, #{costPirce,jdbcType=DECIMAL}, #{marketPrice,jdbcType=DECIMAL}, 
+      #{isDefault,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, #{sellerId,jdbcType=VARCHAR}, 
+      #{cartThumbnail,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{spec,jdbcType=VARCHAR}, #{seller,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pinyougou.pojo.TbItem" >
+    insert into tb_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="sellPoint != null" >
+        sell_point,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="stockCount != null" >
+        stock_count,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="barcode != null" >
+        barcode,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="categoryid != null" >
+        categoryId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="itemSn != null" >
+        item_sn,
+      </if>
+      <if test="costPirce != null" >
+        cost_pirce,
+      </if>
+      <if test="marketPrice != null" >
+        market_price,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="sellerId != null" >
+        seller_id,
+      </if>
+      <if test="cartThumbnail != null" >
+        cart_thumbnail,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="seller != null" >
+        seller,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPoint != null" >
+        #{sellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCount != null" >
+        #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="barcode != null" >
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemSn != null" >
+        #{itemSn,jdbcType=VARCHAR},
+      </if>
+      <if test="costPirce != null" >
+        #{costPirce,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null" >
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerId != null" >
+        #{sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cartThumbnail != null" >
+        #{cartThumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="seller != null" >
+        #{seller,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pinyougou.pojo.TbItemExample" resultType="java.lang.Integer" >
+    select count(*) from tb_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_item
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellPoint != null" >
+        sell_point = #{record.sellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stockCount != null" >
+        stock_count = #{record.stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.barcode != null" >
+        barcode = #{record.barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryid != null" >
+        categoryId = #{record.categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.itemSn != null" >
+        item_sn = #{record.itemSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costPirce != null" >
+        cost_pirce = #{record.costPirce,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marketPrice != null" >
+        market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isDefault != null" >
+        is_default = #{record.isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sellerId != null" >
+        seller_id = #{record.sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cartThumbnail != null" >
+        cart_thumbnail = #{record.cartThumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spec != null" >
+        spec = #{record.spec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seller != null" >
+        seller = #{record.seller,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_item
+    set id = #{record.id,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      sell_point = #{record.sellPoint,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      stock_count = #{record.stockCount,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=INTEGER},
+      barcode = #{record.barcode,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
+      categoryId = #{record.categoryid,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      item_sn = #{record.itemSn,jdbcType=VARCHAR},
+      cost_pirce = #{record.costPirce,jdbcType=DECIMAL},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      is_default = #{record.isDefault,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=BIGINT},
+      seller_id = #{record.sellerId,jdbcType=VARCHAR},
+      cart_thumbnail = #{record.cartThumbnail,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      spec = #{record.spec,jdbcType=VARCHAR},
+      seller = #{record.seller,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pinyougou.pojo.TbItem" >
+    update tb_item
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPoint != null" >
+        sell_point = #{sellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCount != null" >
+        stock_count = #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="barcode != null" >
+        barcode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        categoryId = #{categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemSn != null" >
+        item_sn = #{itemSn,jdbcType=VARCHAR},
+      </if>
+      <if test="costPirce != null" >
+        cost_pirce = #{costPirce,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null" >
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerId != null" >
+        seller_id = #{sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cartThumbnail != null" >
+        cart_thumbnail = #{cartThumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="seller != null" >
+        seller = #{seller,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pinyougou.pojo.TbItem" >
+    update tb_item
+    set title = #{title,jdbcType=VARCHAR},
+      sell_point = #{sellPoint,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      stock_count = #{stockCount,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      categoryId = #{categoryid,jdbcType=BIGINT},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      item_sn = #{itemSn,jdbcType=VARCHAR},
+      cost_pirce = #{costPirce,jdbcType=DECIMAL},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      is_default = #{isDefault,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      seller_id = #{sellerId,jdbcType=VARCHAR},
+      cart_thumbnail = #{cartThumbnail,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      seller = #{seller,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

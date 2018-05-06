@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+	<!-- 分页组件开始 -->
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!-- 分页组件结束 -->
+	<script type="text/javascript" src="../js/base_pagination.js"></script>	
+	<script type="text/javascript" src="../js/service/goodsService.js"></script>
+	<script type="text/javascript" src="../js/service/itemCatService.js"></script>
+	<script type="text/javascript" src="../js/controller/baseController.js"></script>
+	<script type="text/javascript" src="../js/controller/goodsController.js"></script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="findItemCatList();searchEntity={auditStatus:'0'};">
+  <!-- .box-body -->
+                
+                    <div class="box-header with-border">
+                        <h3 class="box-title">商品审核</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+
+                            <!--工具栏-->
+                            <div class="pull-left">
+                                <div class="form-group form-inline">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o" ></i> 删除</button>
+                                        <button type="button" class="btn btn-default" title="审核通过" ng-click="updateStatus('1')"><i class="fa fa-check"></i> 审核通过</button>
+                                        <button type="button" class="btn btn-default" title="驳回" ng-click="updateStatus('2')"><i class="fa fa-ban"></i> 驳回</button>                                  
+                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+                                    商品名称：<input ng-model="searchEntity.goodsName">
+									<button class="btn btn-default" ng-click="reloadList()">查询</button>                                    
+                                </div>
+                            </div>
+                            <!--工具栏/-->
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+			                              <th class="" style="padding-right:0px">
+			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue" ng-click="selectAll()">
+			                              </th> 
+										  <th class="sorting_asc">商品ID</th>
+									      <th class="sorting">商品名称</th>
+									      <th class="sorting">商品价格</th>
+									      <th class="sorting">一级分类</th>
+									      <th class="sorting">二级分类</th>
+									      <th class="sorting">三级分类</th>
+									      <th class="sorting">状态</th>									     						
+					                      <th class="text-center">操作</th>
+			                          </tr>
+			                      </thead>
+			                     <tbody>
+					<tr ng-repeat="entity in list">
+						<td><input type="checkbox" ng-click="updateSelection($event,entity.id)" name="as"></td>
+						<td>{{entity.id}}</td>
+						<td>{{entity.goodsName}}</td>
+						<td>{{entity.price}}</td>
+						<td>{{itemCatList[entity.category1Id]}}</td>
+						<td>{{itemCatList[entity.category2Id]}}</td>
+						<td>{{itemCatList[entity.category3Id]}}</td>
+						<td>{{status[entity.auditStatus]}}</td>
+						<td class="text-center">
+							<a class="btn bg-olive btn-xs" href="goods_edit.html#?id={{entity.id}}">详情</a>
+						</td>
+					</tr>
+				</tbody>
+			                  </table>
+			                  <!--数据列表/-->                        
+							  <!-- 分页 -->
+			<tm-pagination conf="paginationConf" ng-click="emptySelect()"></tm-pagination>
+							 
+                        </div>
+                        <!-- 数据表格 /-->
+                        
+                     </div>
+                    <!-- /.box-body -->
+        
+</body>
+
+</html>

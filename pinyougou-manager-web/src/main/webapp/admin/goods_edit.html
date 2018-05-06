@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- 页面meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>商品编辑</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+	name="viewport">
+
+<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+<link rel="stylesheet"
+	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- 富文本编辑器 -->
+<link rel="stylesheet"
+	href="../plugins/kindeditor/themes/default/default.css" />
+<script charset="utf-8" src="../plugins/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="../plugins/angularjs/angular.min.js">
+	
+</script>
+<script type="text/javascript" src="../js/base.js">
+</script>
+<script type="text/javascript" src="../js/service/goodsService.js">
+</script>
+<script type="text/javascript" src="../js/service/itemCatService.js">
+</script>
+<script type="text/javascript"
+	src="../js/service/typeTemplateService.js">
+</script>
+<script type="text/javascript" src="../js/controller/baseController.js">
+</script>
+<script type="text/javascript" src="../js/controller/goodsControllerr.js">
+</script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou"
+	ng-controller="goodsControllerr" ng-init="selectItemCat1List();findOne()">
+	<!-- 正文区域 -->
+	<section class="content">
+		<div class="box-body">
+			<!--tab页-->
+			<div class="nav-tabs-custom">
+				<!--tab头-->
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#home" data-toggle="tab">商品基本信息</a>
+					</li>
+					<li><a href="#pic_upload" data-toggle="tab">商品图片</a></li>
+					<li><a href="#customAttribute" data-toggle="tab">扩展属性</a></li>
+					<li><a href="#spec" data-toggle="tab">规格</a></li>
+				</ul>
+				<!--tab头/-->
+
+				<!--tab内容-->
+				<div class="tab-content">
+
+					<!--表单内容-->
+					<div class="tab-pane active" id="home">
+						<div class="row data-type">
+							<div class="col-md-2 title">商品分类</div>
+							<div class="col-md-10 data">
+								<table>
+									<tr>
+										<td><select class="form-control"
+											ng-model="entity.goods.category1Id"
+											ng-options="item.id as item.name for item in itemCat1List">
+										</select></td>
+										<td><select class="form-control select-sm"
+											ng-model="entity.goods.category2Id"
+											ng-options="item.id as item.name for item in itemCat2List"></select></td>
+										<td><select class="form-control select-sm"
+											ng-model="entity.goods.category3Id"
+											ng-options="item.id as item.name for item in itemCat3List"></select></td>
+										<td ng-if="entity.goods.typeTemplateId!=null">模板ID:{{entity.goods.typeTemplateId}}</td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="col-md-2 title">商品名称</div>
+							<div class="col-md-10 data">
+								<input type="text" class="form-control" placeholder="商品名称"
+									value="" ng-model="entity.goods.goodsName" readonly>
+							</div>
+
+							<div class="col-md-2 title">品牌</div>
+							<div class="col-md-10 data">
+								<select class="form-control" ng-model="entity.goods.brandId"
+									ng-options="brand.id as brand.text for brand in typeTemplate.brandIds"></select>
+							</div>
+
+							<div class="col-md-2 title">副标题</div>
+							<div class="col-md-10 data">
+								<input type="text" class="form-control" placeholder="副标题"
+									value="" ng-model="entity.goods.caption" readonly>
+							</div>
+
+							<div class="col-md-2 title">价格</div>
+							<div class="col-md-10 data">
+								<div class="input-group">
+									<span class="input-group-addon">¥</span> <input type="text"
+										class="form-control" placeholder="价格" value=""
+										ng-model="entity.goods.price" readonly>
+								</div>
+							</div>
+
+							<div class="col-md-2 title editer">商品介绍</div>
+							<div class="col-md-10 data editer">
+								<textarea name="content"
+									style="width: 800px; height: 400px; visibility: hidden;"></textarea>
+							</div>
+
+							<div class="col-md-2 title rowHeight2x">包装列表</div>
+							<div class="col-md-10 data rowHeight2x">
+								<textarea rows="4" class="form-control" placeholder="包装列表"
+									ng-model="entity.goodsDesc.packageList" readonly></textarea>
+							</div>
+
+							<div class="col-md-2 title rowHeight2x">售后服务</div>
+							<div class="col-md-10 data rowHeight2x">
+								<textarea rows="4" class="form-control" placeholder="售后服务"
+									ng-model="entity.goodsDesc.saleService" readonly></textarea>
+							</div>
+						</div>
+					</div>
+
+					<!--图片上传-->
+					<div class="tab-pane" id="pic_upload">
+						<div class="row data-type">
+							<table
+								class="table table-bordered table-striped table-hover dataTable">
+								<thead>
+									<tr>
+										<th class="sorting">颜色</th>
+										<th class="sorting">图片</th>
+										<th class="sorting">操作</th>
+								</thead>
+								<tbody>
+									<tr ng-repeat="pojo in entity.goodsDesc.itemImages">
+										<td>{{pojo.color}}</td>
+										<td><img alt="" src="{{pojo.url}}" width="100px"
+											height="100px"></td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+
+					<!--扩展属性-->
+					<div class="tab-pane" id="customAttribute">
+						<div class="row data-type">
+							<div ng-repeat="pojo in entity.goodsDesc.customAttributeItems">
+								<div class="col-md-2 title">{{pojo.text}}</div>
+								<div class="col-md-10 data">
+									<input class="form-control" placeholder="{{pojo.text}}"
+										ng-model="pojo.value" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--规格-->
+					<div class="tab-pane" id="spec">
+						<div class="row data-type">
+							<div class="col-md-2 title">是否启用规格</div>
+							<div class="col-md-10 data">
+								<input type="checkbox" ng-model="entity.goods.isEnableSpec" ng-true-value="1" ng-false-value="0" >
+							</div>
+						</div>
+						<p>
+						<div ng-if="entity.goods.isEnableSpec==1">
+
+							<div class="row data-type">
+								<div ng-repeat="pojo in findSpecList">
+									<div class="col-md-2 title">{{pojo.text}}</div>
+									<div class="col-md-10 data">
+										<span ng-repeat="option in pojo.options"> 
+											<input type="checkbox" ng-checked="checkAttributeValue(pojo.text,option.optionName)">{{option.optionName}}
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="row data-type">
+								<table
+									class="table table-bordered table-striped table-hover dataTable">
+									<thead>
+										<tr>
+											<th class="sorting" ng-repeat="items in entity.goodsDesc.specificationItems">{{items.attributeName}}</th>
+											<th class="sorting">价格</th>
+											<th class="sorting">库存</th>
+											<th class="sorting">是否启用</th>
+											<th class="sorting">是否默认</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="pojo in entity.itemList">
+											<td ng-repeat="items in entity.goodsDesc.specificationItems">{{pojo.spec[items.attributeName]}}</td>
+											<td><input class="form-control" placeholder="价格" ng-model="pojo.price" readonly>
+											</td>
+											<td><input class="form-control" placeholder="库存数量" ng-model="pojo.num" readonly>
+											</td>
+											<td><input type="checkbox" ng-model="pojo.status" ng-true-value="1" ng-false-value="0"></td>
+											<td><input type="checkbox" ng-model="pojo.isDefault"  ng-true-value="1" ng-false-value="0"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="btn-toolbar list-toolbar">
+			<a class="btn btn-default" href="goods.html">返回列表</a>
+		</div>
+	</section>
+	<!-- 正文区域 /-->
+	<script type="text/javascript">
+		var editor;
+		KindEditor.ready(function(K) {
+			editor = K.create('textarea[name="content"]', {
+				allowFileManager : true
+			});
+		});
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbSellerMapper" >
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbSeller" >
+    <id column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="address_detail" property="addressDetail" jdbcType="VARCHAR" />
+    <result column="linkman_name" property="linkmanName" jdbcType="VARCHAR" />
+    <result column="linkman_qq" property="linkmanQq" jdbcType="VARCHAR" />
+    <result column="linkman_mobile" property="linkmanMobile" jdbcType="VARCHAR" />
+    <result column="linkman_email" property="linkmanEmail" jdbcType="VARCHAR" />
+    <result column="license_number" property="licenseNumber" jdbcType="VARCHAR" />
+    <result column="tax_number" property="taxNumber" jdbcType="VARCHAR" />
+    <result column="org_number" property="orgNumber" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="BIGINT" />
+    <result column="logo_pic" property="logoPic" jdbcType="VARCHAR" />
+    <result column="brief" property="brief" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="legal_person_card_id" property="legalPersonCardId" jdbcType="VARCHAR" />
+    <result column="bank_user" property="bankUser" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seller_id, name, nick_name, password, email, mobile, telephone, status, address_detail, 
+    linkman_name, linkman_qq, linkman_mobile, linkman_email, license_number, tax_number, 
+    org_number, address, logo_pic, brief, create_time, legal_person, legal_person_card_id, 
+    bank_user, bank_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pinyougou.pojo.TbSellerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_seller
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_seller
+    where seller_id = #{sellerId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_seller
+    where seller_id = #{sellerId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pinyougou.pojo.TbSellerExample" >
+    delete from tb_seller
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pinyougou.pojo.TbSeller" >
+    insert into tb_seller (seller_id, name, nick_name, 
+      password, email, mobile, 
+      telephone, status, address_detail, 
+      linkman_name, linkman_qq, linkman_mobile, 
+      linkman_email, license_number, tax_number, 
+      org_number, address, logo_pic, 
+      brief, create_time, legal_person, 
+      legal_person_card_id, bank_user, bank_name
+      )
+    values (#{sellerId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{addressDetail,jdbcType=VARCHAR}, 
+      #{linkmanName,jdbcType=VARCHAR}, #{linkmanQq,jdbcType=VARCHAR}, #{linkmanMobile,jdbcType=VARCHAR}, 
+      #{linkmanEmail,jdbcType=VARCHAR}, #{licenseNumber,jdbcType=VARCHAR}, #{taxNumber,jdbcType=VARCHAR}, 
+      #{orgNumber,jdbcType=VARCHAR}, #{address,jdbcType=BIGINT}, #{logoPic,jdbcType=VARCHAR}, 
+      #{brief,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{legalPerson,jdbcType=VARCHAR}, 
+      #{legalPersonCardId,jdbcType=VARCHAR}, #{bankUser,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pinyougou.pojo.TbSeller" >
+    insert into tb_seller
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sellerId != null" >
+        seller_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="addressDetail != null" >
+        address_detail,
+      </if>
+      <if test="linkmanName != null" >
+        linkman_name,
+      </if>
+      <if test="linkmanQq != null" >
+        linkman_qq,
+      </if>
+      <if test="linkmanMobile != null" >
+        linkman_mobile,
+      </if>
+      <if test="linkmanEmail != null" >
+        linkman_email,
+      </if>
+      <if test="licenseNumber != null" >
+        license_number,
+      </if>
+      <if test="taxNumber != null" >
+        tax_number,
+      </if>
+      <if test="orgNumber != null" >
+        org_number,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="logoPic != null" >
+        logo_pic,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="legalPersonCardId != null" >
+        legal_person_card_id,
+      </if>
+      <if test="bankUser != null" >
+        bank_user,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sellerId != null" >
+        #{sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanQq != null" >
+        #{linkmanQq,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanMobile != null" >
+        #{linkmanMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanEmail != null" >
+        #{linkmanEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNumber != null" >
+        #{licenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNumber != null" >
+        #{taxNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNumber != null" >
+        #{orgNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=BIGINT},
+      </if>
+      <if test="logoPic != null" >
+        #{logoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null" >
+        #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonCardId != null" >
+        #{legalPersonCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankUser != null" >
+        #{bankUser,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pinyougou.pojo.TbSellerExample" resultType="java.lang.Integer" >
+    select count(*) from tb_seller
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_seller
+    <set >
+      <if test="record.sellerId != null" >
+        seller_id = #{record.sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null" >
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressDetail != null" >
+        address_detail = #{record.addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanName != null" >
+        linkman_name = #{record.linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanQq != null" >
+        linkman_qq = #{record.linkmanQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanMobile != null" >
+        linkman_mobile = #{record.linkmanMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanEmail != null" >
+        linkman_email = #{record.linkmanEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseNumber != null" >
+        license_number = #{record.licenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxNumber != null" >
+        tax_number = #{record.taxNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgNumber != null" >
+        org_number = #{record.orgNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=BIGINT},
+      </if>
+      <if test="record.logoPic != null" >
+        logo_pic = #{record.logoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brief != null" >
+        brief = #{record.brief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.legalPerson != null" >
+        legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPersonCardId != null" >
+        legal_person_card_id = #{record.legalPersonCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankUser != null" >
+        bank_user = #{record.bankUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_seller
+    set seller_id = #{record.sellerId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      address_detail = #{record.addressDetail,jdbcType=VARCHAR},
+      linkman_name = #{record.linkmanName,jdbcType=VARCHAR},
+      linkman_qq = #{record.linkmanQq,jdbcType=VARCHAR},
+      linkman_mobile = #{record.linkmanMobile,jdbcType=VARCHAR},
+      linkman_email = #{record.linkmanEmail,jdbcType=VARCHAR},
+      license_number = #{record.licenseNumber,jdbcType=VARCHAR},
+      tax_number = #{record.taxNumber,jdbcType=VARCHAR},
+      org_number = #{record.orgNumber,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=BIGINT},
+      logo_pic = #{record.logoPic,jdbcType=VARCHAR},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      legal_person_card_id = #{record.legalPersonCardId,jdbcType=VARCHAR},
+      bank_user = #{record.bankUser,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pinyougou.pojo.TbSeller" >
+    update tb_seller
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanQq != null" >
+        linkman_qq = #{linkmanQq,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanMobile != null" >
+        linkman_mobile = #{linkmanMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanEmail != null" >
+        linkman_email = #{linkmanEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNumber != null" >
+        license_number = #{licenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNumber != null" >
+        tax_number = #{taxNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNumber != null" >
+        org_number = #{orgNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=BIGINT},
+      </if>
+      <if test="logoPic != null" >
+        logo_pic = #{logoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null" >
+        brief = #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonCardId != null" >
+        legal_person_card_id = #{legalPersonCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankUser != null" >
+        bank_user = #{bankUser,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where seller_id = #{sellerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pinyougou.pojo.TbSeller" >
+    update tb_seller
+    set name = #{name,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      address_detail = #{addressDetail,jdbcType=VARCHAR},
+      linkman_name = #{linkmanName,jdbcType=VARCHAR},
+      linkman_qq = #{linkmanQq,jdbcType=VARCHAR},
+      linkman_mobile = #{linkmanMobile,jdbcType=VARCHAR},
+      linkman_email = #{linkmanEmail,jdbcType=VARCHAR},
+      license_number = #{licenseNumber,jdbcType=VARCHAR},
+      tax_number = #{taxNumber,jdbcType=VARCHAR},
+      org_number = #{orgNumber,jdbcType=VARCHAR},
+      address = #{address,jdbcType=BIGINT},
+      logo_pic = #{logoPic,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      legal_person_card_id = #{legalPersonCardId,jdbcType=VARCHAR},
+      bank_user = #{bankUser,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR}
+    where seller_id = #{sellerId,jdbcType=VARCHAR}
+  </update>
+</mapper>

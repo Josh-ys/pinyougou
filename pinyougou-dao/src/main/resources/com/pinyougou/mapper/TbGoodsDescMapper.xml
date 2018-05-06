@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbGoodsDescMapper" >
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbGoodsDesc" >
+    <id column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="specification_items" property="specificationItems" jdbcType="VARCHAR" />
+    <result column="custom_attribute_items" property="customAttributeItems" jdbcType="VARCHAR" />
+    <result column="item_images" property="itemImages" jdbcType="VARCHAR" />
+    <result column="package_list" property="packageList" jdbcType="VARCHAR" />
+    <result column="sale_service" property="saleService" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goods_id, introduction, specification_items, custom_attribute_items, item_images, 
+    package_list, sale_service
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pinyougou.pojo.TbGoodsDescExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_goods_desc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods_desc
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_goods_desc
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pinyougou.pojo.TbGoodsDescExample" >
+    delete from tb_goods_desc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pinyougou.pojo.TbGoodsDesc" >
+    insert into tb_goods_desc (goods_id, introduction, specification_items, 
+      custom_attribute_items, item_images, package_list, 
+      sale_service)
+    values (#{goodsId,jdbcType=BIGINT}, #{introduction,jdbcType=VARCHAR}, #{specificationItems,jdbcType=VARCHAR}, 
+      #{customAttributeItems,jdbcType=VARCHAR}, #{itemImages,jdbcType=VARCHAR}, #{packageList,jdbcType=VARCHAR}, 
+      #{saleService,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pinyougou.pojo.TbGoodsDesc" >
+    insert into tb_goods_desc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="specificationItems != null" >
+        specification_items,
+      </if>
+      <if test="customAttributeItems != null" >
+        custom_attribute_items,
+      </if>
+      <if test="itemImages != null" >
+        item_images,
+      </if>
+      <if test="packageList != null" >
+        package_list,
+      </if>
+      <if test="saleService != null" >
+        sale_service,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="specificationItems != null" >
+        #{specificationItems,jdbcType=VARCHAR},
+      </if>
+      <if test="customAttributeItems != null" >
+        #{customAttributeItems,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImages != null" >
+        #{itemImages,jdbcType=VARCHAR},
+      </if>
+      <if test="packageList != null" >
+        #{packageList,jdbcType=VARCHAR},
+      </if>
+      <if test="saleService != null" >
+        #{saleService,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pinyougou.pojo.TbGoodsDescExample" resultType="java.lang.Integer" >
+    select count(*) from tb_goods_desc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_goods_desc
+    <set >
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specificationItems != null" >
+        specification_items = #{record.specificationItems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customAttributeItems != null" >
+        custom_attribute_items = #{record.customAttributeItems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemImages != null" >
+        item_images = #{record.itemImages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageList != null" >
+        package_list = #{record.packageList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleService != null" >
+        sale_service = #{record.saleService,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_goods_desc
+    set goods_id = #{record.goodsId,jdbcType=BIGINT},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      specification_items = #{record.specificationItems,jdbcType=VARCHAR},
+      custom_attribute_items = #{record.customAttributeItems,jdbcType=VARCHAR},
+      item_images = #{record.itemImages,jdbcType=VARCHAR},
+      package_list = #{record.packageList,jdbcType=VARCHAR},
+      sale_service = #{record.saleService,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pinyougou.pojo.TbGoodsDesc" >
+    update tb_goods_desc
+    <set >
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="specificationItems != null" >
+        specification_items = #{specificationItems,jdbcType=VARCHAR},
+      </if>
+      <if test="customAttributeItems != null" >
+        custom_attribute_items = #{customAttributeItems,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImages != null" >
+        item_images = #{itemImages,jdbcType=VARCHAR},
+      </if>
+      <if test="packageList != null" >
+        package_list = #{packageList,jdbcType=VARCHAR},
+      </if>
+      <if test="saleService != null" >
+        sale_service = #{saleService,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pinyougou.pojo.TbGoodsDesc" >
+    update tb_goods_desc
+    set introduction = #{introduction,jdbcType=VARCHAR},
+      specification_items = #{specificationItems,jdbcType=VARCHAR},
+      custom_attribute_items = #{customAttributeItems,jdbcType=VARCHAR},
+      item_images = #{itemImages,jdbcType=VARCHAR},
+      package_list = #{packageList,jdbcType=VARCHAR},
+      sale_service = #{saleService,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </update>
+</mapper>

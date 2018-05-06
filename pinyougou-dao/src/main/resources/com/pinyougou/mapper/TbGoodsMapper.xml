@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbGoodsMapper">
+	<resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbGoods">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+		<result column="default_item_id" property="defaultItemId"
+			jdbcType="BIGINT" />
+		<result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+		<result column="is_marketable" property="isMarketable"
+			jdbcType="VARCHAR" />
+		<result column="brand_id" property="brandId" jdbcType="BIGINT" />
+		<result column="caption" property="caption" jdbcType="VARCHAR" />
+		<result column="category1_id" property="category1Id" jdbcType="BIGINT" />
+		<result column="category2_id" property="category2Id" jdbcType="BIGINT" />
+		<result column="category3_id" property="category3Id" jdbcType="BIGINT" />
+		<result column="small_pic" property="smallPic" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="type_template_id" property="typeTemplateId"
+			jdbcType="BIGINT" />
+		<result column="is_enable_spec" property="isEnableSpec"
+			jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, seller_id, goods_name, default_item_id, audit_status, is_marketable,
+		brand_id,
+		caption, category1_id, category2_id, category3_id, small_pic, price,
+		type_template_id,
+		is_enable_spec, is_delete
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.pinyougou.pojo.TbGoodsExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from tb_goods
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tb_goods
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tb_goods
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.pinyougou.pojo.TbGoodsExample">
+		delete from tb_goods
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.pinyougou.pojo.TbGoods">
+		<selectKey resultType="long" order="AFTER" keyProperty="id">
+			select last_insert_id() as id;
+		</selectKey>
+		insert into tb_goods (id, seller_id, goods_name,
+		default_item_id, audit_status, is_marketable,
+		brand_id, caption, category1_id,
+		category2_id, category3_id, small_pic,
+		price, type_template_id, is_enable_spec,
+		is_delete)
+		values (#{id,jdbcType=BIGINT}, #{sellerId,jdbcType=VARCHAR},
+		#{goodsName,jdbcType=VARCHAR},
+		#{defaultItemId,jdbcType=BIGINT}, #{auditStatus,jdbcType=VARCHAR}, #{isMarketable,jdbcType=VARCHAR},
+		#{brandId,jdbcType=BIGINT}, #{caption,jdbcType=VARCHAR},
+		#{category1Id,jdbcType=BIGINT},
+		#{category2Id,jdbcType=BIGINT}, #{category3Id,jdbcType=BIGINT}, #{smallPic,jdbcType=VARCHAR},
+		#{price,jdbcType=DECIMAL}, #{typeTemplateId,jdbcType=BIGINT},
+		#{isEnableSpec,jdbcType=VARCHAR},
+		#{isDelete,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pinyougou.pojo.TbGoods">
+		insert into tb_goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="sellerId != null">
+				seller_id,
+			</if>
+			<if test="goodsName != null">
+				goods_name,
+			</if>
+			<if test="defaultItemId != null">
+				default_item_id,
+			</if>
+			<if test="auditStatus != null">
+				audit_status,
+			</if>
+			<if test="isMarketable != null">
+				is_marketable,
+			</if>
+			<if test="brandId != null">
+				brand_id,
+			</if>
+			<if test="caption != null">
+				caption,
+			</if>
+			<if test="category1Id != null">
+				category1_id,
+			</if>
+			<if test="category2Id != null">
+				category2_id,
+			</if>
+			<if test="category3Id != null">
+				category3_id,
+			</if>
+			<if test="smallPic != null">
+				small_pic,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="typeTemplateId != null">
+				type_template_id,
+			</if>
+			<if test="isEnableSpec != null">
+				is_enable_spec,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsName != null">
+				#{goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="defaultItemId != null">
+				#{defaultItemId,jdbcType=BIGINT},
+			</if>
+			<if test="auditStatus != null">
+				#{auditStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="isMarketable != null">
+				#{isMarketable,jdbcType=VARCHAR},
+			</if>
+			<if test="brandId != null">
+				#{brandId,jdbcType=BIGINT},
+			</if>
+			<if test="caption != null">
+				#{caption,jdbcType=VARCHAR},
+			</if>
+			<if test="category1Id != null">
+				#{category1Id,jdbcType=BIGINT},
+			</if>
+			<if test="category2Id != null">
+				#{category2Id,jdbcType=BIGINT},
+			</if>
+			<if test="category3Id != null">
+				#{category3Id,jdbcType=BIGINT},
+			</if>
+			<if test="smallPic != null">
+				#{smallPic,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="typeTemplateId != null">
+				#{typeTemplateId,jdbcType=BIGINT},
+			</if>
+			<if test="isEnableSpec != null">
+				#{isEnableSpec,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.pinyougou.pojo.TbGoodsExample"
+		resultType="java.lang.Integer">
+		select count(*) from tb_goods
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update tb_goods
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.sellerId != null">
+				seller_id = #{record.sellerId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.goodsName != null">
+				goods_name = #{record.goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.defaultItemId != null">
+				default_item_id = #{record.defaultItemId,jdbcType=BIGINT},
+			</if>
+			<if test="record.auditStatus != null">
+				audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isMarketable != null">
+				is_marketable = #{record.isMarketable,jdbcType=VARCHAR},
+			</if>
+			<if test="record.brandId != null">
+				brand_id = #{record.brandId,jdbcType=BIGINT},
+			</if>
+			<if test="record.caption != null">
+				caption = #{record.caption,jdbcType=VARCHAR},
+			</if>
+			<if test="record.category1Id != null">
+				category1_id = #{record.category1Id,jdbcType=BIGINT},
+			</if>
+			<if test="record.category2Id != null">
+				category2_id = #{record.category2Id,jdbcType=BIGINT},
+			</if>
+			<if test="record.category3Id != null">
+				category3_id = #{record.category3Id,jdbcType=BIGINT},
+			</if>
+			<if test="record.smallPic != null">
+				small_pic = #{record.smallPic,jdbcType=VARCHAR},
+			</if>
+			<if test="record.price != null">
+				price = #{record.price,jdbcType=DECIMAL},
+			</if>
+			<if test="record.typeTemplateId != null">
+				type_template_id = #{record.typeTemplateId,jdbcType=BIGINT},
+			</if>
+			<if test="record.isEnableSpec != null">
+				is_enable_spec = #{record.isEnableSpec,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isDelete != null">
+				is_delete = #{record.isDelete,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update tb_goods
+		set id = #{record.id,jdbcType=BIGINT},
+		seller_id = #{record.sellerId,jdbcType=VARCHAR},
+		goods_name = #{record.goodsName,jdbcType=VARCHAR},
+		default_item_id = #{record.defaultItemId,jdbcType=BIGINT},
+		audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+		is_marketable = #{record.isMarketable,jdbcType=VARCHAR},
+		brand_id = #{record.brandId,jdbcType=BIGINT},
+		caption = #{record.caption,jdbcType=VARCHAR},
+		category1_id = #{record.category1Id,jdbcType=BIGINT},
+		category2_id = #{record.category2Id,jdbcType=BIGINT},
+		category3_id = #{record.category3Id,jdbcType=BIGINT},
+		small_pic = #{record.smallPic,jdbcType=VARCHAR},
+		price = #{record.price,jdbcType=DECIMAL},
+		type_template_id = #{record.typeTemplateId,jdbcType=BIGINT},
+		is_enable_spec = #{record.isEnableSpec,jdbcType=VARCHAR},
+		is_delete = #{record.isDelete,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pinyougou.pojo.TbGoods">
+		update tb_goods
+		<set>
+			<if test="sellerId != null">
+				seller_id = #{sellerId,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsName != null">
+				goods_name = #{goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="defaultItemId != null">
+				default_item_id = #{defaultItemId,jdbcType=BIGINT},
+			</if>
+			<if test="auditStatus != null">
+				audit_status = #{auditStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="isMarketable != null">
+				is_marketable = #{isMarketable,jdbcType=VARCHAR},
+			</if>
+			<if test="brandId != null">
+				brand_id = #{brandId,jdbcType=BIGINT},
+			</if>
+			<if test="caption != null">
+				caption = #{caption,jdbcType=VARCHAR},
+			</if>
+			<if test="category1Id != null">
+				category1_id = #{category1Id,jdbcType=BIGINT},
+			</if>
+			<if test="category2Id != null">
+				category2_id = #{category2Id,jdbcType=BIGINT},
+			</if>
+			<if test="category3Id != null">
+				category3_id = #{category3Id,jdbcType=BIGINT},
+			</if>
+			<if test="smallPic != null">
+				small_pic = #{smallPic,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="typeTemplateId != null">
+				type_template_id = #{typeTemplateId,jdbcType=BIGINT},
+			</if>
+			<if test="isEnableSpec != null">
+				is_enable_spec = #{isEnableSpec,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pinyougou.pojo.TbGoods">
+		update tb_goods
+		set seller_id = #{sellerId,jdbcType=VARCHAR},
+		goods_name = #{goodsName,jdbcType=VARCHAR},
+		default_item_id = #{defaultItemId,jdbcType=BIGINT},
+		audit_status = #{auditStatus,jdbcType=VARCHAR},
+		is_marketable = #{isMarketable,jdbcType=VARCHAR},
+		brand_id = #{brandId,jdbcType=BIGINT},
+		caption = #{caption,jdbcType=VARCHAR},
+		category1_id = #{category1Id,jdbcType=BIGINT},
+		category2_id = #{category2Id,jdbcType=BIGINT},
+		category3_id = #{category3Id,jdbcType=BIGINT},
+		small_pic = #{smallPic,jdbcType=VARCHAR},
+		price = #{price,jdbcType=DECIMAL},
+		type_template_id = #{typeTemplateId,jdbcType=BIGINT},
+		is_enable_spec = #{isEnableSpec,jdbcType=VARCHAR},
+		is_delete = #{isDelete,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

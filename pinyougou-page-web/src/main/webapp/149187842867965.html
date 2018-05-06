@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>产品详情页</title>
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js">  </script>
+	<script type="text/javascript" src="js/base.js">  </script>
+	<script type="text/javascript" src="js/controller/itemController.js">  </script> 
+	
+	<script>
+		//sku列表
+		var skuList = [
+					];
+	</script>
+	
+	<link rel="icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="css/pages-item.css" />
+    <link rel="stylesheet" type="text/css" href="css/pages-zoom.css" />
+    <link rel="stylesheet" type="text/css" href="css/widget-cartPanelView.css" />
+</head>
+
+<body ng-app="pinyougou" ng-controller="itemController" ng-init="num=1;loadSku()">
+	<!-- 头部栏位 -->
+FreeMarker template error (DEBUG mode; use RETHROW in production!):
+The following has evaluated to null or missing:
+==> goodsDesc.specificationItems  [in template "item.ftl" at line 39, column 43]
+
+----
+Tip: It's the step after the last dot that caused this error, not those before it.
+----
+Tip: If the failing expression is known to be legally refer to something that's sometimes null or missing, either specify a default value like myOptionalVar!myDefault, or use <#if myOptionalVar??>when-present<#else>when-missing</#if>. (These only cover the last step of the expression; to cover the whole expression, use parenthesis: (myOptionalVar.foo)!myDefault, (myOptionalVar.foo)??
+----
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #assign specificationItemsList = good...  [in template "item.ftl" at line 39, column 9]
+----
+
+Java stack trace (for programmers):
+----
+freemarker.core.InvalidReferenceException: [... Exception message was already printed; see it above ...]
+	at freemarker.core.InvalidReferenceException.getInstance(InvalidReferenceException.java:131)
+	at freemarker.core.EvalUtil.coerceModelToString(EvalUtil.java:355)
+	at freemarker.core.Expression.evalAndCoerceToString(Expression.java:82)
+	at freemarker.core.BuiltInForString._eval(BuiltInForString.java:26)
+	at freemarker.core.Expression.eval(Expression.java:78)
+	at freemarker.core.Assignment.accept(Assignment.java:131)
+	at freemarker.core.Environment.visit(Environment.java:324)
+	at freemarker.core.MixedContent.accept(MixedContent.java:54)
+	at freemarker.core.Environment.visit(Environment.java:324)
+	at freemarker.core.Environment.process(Environment.java:302)
+	at freemarker.template.Template.process(Template.java:325)
+	at com.pinyougou.page.service.impl.ItemPageServiceImpl.genItemHtml(ItemPageServiceImpl.java:87)
+	at com.pinyougou.page.service.impl.PageListener.onMessage(PageListener.java:25)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:746)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:684)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:651)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:315)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:253)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1150)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1142)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1039)
+	at java.lang.Thread.run(Thread.java:745)
