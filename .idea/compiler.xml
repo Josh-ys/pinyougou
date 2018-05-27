@@ -24,6 +24,10 @@
         <module name="pinyougou-sellergoods-service" />
         <module name="pinyougou-shop-web" />
         <module name="pinyougou-solr-util" />
+        <module name="pinyougou-user-interface" />
+        <module name="pinyougou-user-service" />
+        <module name="pinyougou-user-web" />
+        <module name="pinyougouuserservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -45,6 +49,10 @@
       <module name="pinyougou-sellergoods-service" target="1.7" />
       <module name="pinyougou-shop-web" target="1.7" />
       <module name="pinyougou-solr-util" target="1.7" />
+      <module name="pinyougou-user-interface" target="1.7" />
+      <module name="pinyougou-user-service" target="1.7" />
+      <module name="pinyougou-user-web" target="1.7" />
+      <module name="pinyougouuserservice" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
